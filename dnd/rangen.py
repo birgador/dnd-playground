@@ -224,12 +224,13 @@ def gen_props(toxicity):
             damage = "Heals "+str((-1)*props["die"][1])+str(props["die"][0])
         else:
             damage = "Deals "+str(props["die"][1])+str(props["die"][0])
-    else:
-        damage = "Deals no poison damage"
+        properties.append(damage)
+    # else:
+    #     damage = "Deals no poison damage"
     
-    properties.append(damage)
+    
     poisoned = time_ranking[abs(props["drug"])]
-    if props["drug"]>=0:
+    if props["drug"]>0:
         properties.append("Gives condition poisoned for"+poisoned)
     elif props["drug"]<0:
         properties.append("Gives condition boosted for"+poisoned)
@@ -252,6 +253,7 @@ def gen_props(toxicity):
                 properties.append([effect,property])
 
     # print("debug info:",props)
+    # print("------------------")
     return properties
         # print("debug info:",props,"sign:",sign)
 

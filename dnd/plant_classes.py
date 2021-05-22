@@ -41,6 +41,9 @@ class Fruit_seed(Ingredientable):
 
         print("It has the following properties:",self.props)
         #print(effects)
+    def set_parent(self,parent):
+        self.parent = parent
+        self.name = "Seeds of a "+parent.name
         
 
 class Fruit_skin(Ingredientable):
@@ -58,6 +61,10 @@ class Fruit_skin(Ingredientable):
             self.edible = ""
         else:
             self.edible = "not "
+
+    def set_parent(self,parent):
+        self.parent = parent
+        self.name = "Skin of a "+parent.name
 
     def set_name(self,name):
         self.name = name
@@ -85,6 +92,9 @@ class Fruit_core(Ingredientable):
         else:
             self.edible = "not "
 
+    def set_parent(self,parent):
+        self.parent = parent
+        self.name = "Pulp of a "+parent.name
 
     def describe(self,time_ranking=Ingredientable.time_ranking,effects = []):
         print('Core is {shape} with dimensions {x}, {y}, {z} mm and is of colour {colour}. Its texture is {texture}'.format(shape = self.shape, x = self.dimensions[0],y = self.dimensions[1],z = self.dimensions[2], colour = self.colour, texture = self.texture))
@@ -107,6 +117,13 @@ class Fruit(Ingredientable):
         self.name = rangen.newWord(data)
         self.environment = rangen.choose_environment()
 
+        self.core.set_parent(self)
+        self.skin.set_parent(self)
+        self.seed.set_parent(self)
+
+
+
+
     def describe(self):
 
         print("The fruit is named {} and can usually be found in {}".format(self.name,self.environment))
@@ -126,6 +143,3 @@ class Fruit(Ingredientable):
 La idea es tenir una dsitribució en forma de pits amb "zeros" al -101,0 i 101 repreentant la toxicitat dels ingredients. Els ingredients de 0 a -101 seran beneficiosos. Hi haurà una sèrie de rangs que representaran el base-die de l'ingredient. Propers al zero seran d4 i propers a +-100 seran d12 (potser plantejar d20 o d100)
 
 '''
-
-x = Fruit()
-print(x.name)
