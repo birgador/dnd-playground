@@ -2,39 +2,40 @@ import random
 import rangen
 import numpy as np
 import plant_classes
-from Ingredientable import Ingredientable
+from Ingredients import Ingredient
+from Entities import Entity
 
 
 
-class Flower(Ingredientable):
+class Flower(Ingredient):
 
-    def __init__(self,shapes=Ingredientable.shapes, textures = Ingredientable.textures,p_distr=Ingredientable.p_distr):
+    def __init__(self,shapes=Ingredient.shapes, textures = Ingredient.textures,p_distr=Ingredient.p_distr):
         flower_types = ['sympetalous','polypetalous','actinomorphic','zygomorphic']
         
-        self.type = 'Flower'
+        self.attributes['type'] = 'Flower'
         super().__init__(shapes=shapes, textures=textures, p_distr=p_distr)
-        self.flower = random.choice(flower_types)
+        self.attributes['flower_type'] = random.choice(flower_types).title()
 
-class Leaf(Ingredientable):
+class Leaf(Ingredient):
 
-    def __init__(self,shapes=Ingredientable.shapes, textures = Ingredientable.textures,p_distr=Ingredientable.p_distr):
+    def __init__(self,shapes=Ingredient.shapes, textures = Ingredient.textures,p_distr=Ingredient.p_distr):
         leaf_types = ['needle','frond','undulate','sinuate','serrate','dentale','lobate','scalloped','palmate','digitate','bipinnatisect','tripinnatisect','pinnatisect','palmatisect','pedate','palmatilobate','bipartite','tripartite','palmatipartite','pinnatipartite','pinnatifid']
-        self.type =  'Leaf'
+        self.attributes['type'] =  'Leaf'
         super().__init__(shapes=shapes, textures=textures, p_distr=p_distr)
         
-        self.leaves = random.choice(leaf_types)
+        self.attributes['leaf_type'] = random.choice(leaf_types).title()
 
-class Root(Ingredientable):
+class Root(Ingredient):
 
     def __init__(self, shapes, textures, p_distr):
-        root_types = ['placeholder']
-        self.type = 'Root'
+        root_types = ['fibrous','taproot','adventitious','creeping','tuberous','water','parasite']  #https://www.botanical-online.com/en/botany/roots-types
+        self.attributes['type'] = 'Root'
         
         super().__init__(shapes=shapes, textures=textures, p_distr=p_distr)
 
-        self.root = random.choice(root_types)
+        self.attributes['root_type'] = random.choice(root_types)
 
-class Sap(Ingredientable):
+class Sap(Ingredient):
 
     def __init__(self, shapes, textures, p_distr):
         sap_adjs = ['placeholder']
@@ -42,13 +43,13 @@ class Sap(Ingredientable):
         
         super().__init__(shapes=shapes, textures=textures, p_distr=p_distr)
 
-        self.sap = random.choice(root_types)
+        self.sap = random.choice(sap_adjs)
 
-class Plant(Ingredientable):
+class Plant(Ingredient):
 
-    def __init__(self,shapes=Ingredientable.shapes, textures = Ingredientable.textures,p_distr=Ingredientable.p_distr):
+    def __init__(self,shapes=Ingredient.shapes, textures = Ingredient.textures,p_distr=Ingredient.p_distr):
         
-        names = Ingredientable.load_names('minerals')
+        names = Ingredient.load_names('minerals')
         self.type = 'Plant'
         super().__init__(shapes, textures,p_distr)
         
@@ -59,7 +60,7 @@ class Plant(Ingredientable):
 
 
 
-class Bark(Ingredientable):
+class Bark(Ingredient):
 
     def __init__(self, shapes, textures, p_distr):
         bark_types = ['placeholder']
@@ -69,25 +70,9 @@ class Bark(Ingredientable):
         self.bark = random.choice(bark_types)
 
 
-class Tree(Plant):
-
-    def __init__(self, shapes=Plant.shapes, textures=Plant.textures, p_distr=Plant.p_distr):
-        super().__init__(shapes=shapes, textures=textures, p_distr=p_distr)
-
-        self.bark = Bark()
-        self.leaf = Leaf()
-        self.root = Root()
-        self.sap_phloem = Sap()     #From leaves/oplace where food created to downwards. Usually sugary
-        self.sap_xylem = Sap()      #From roots to rest of tree. Transport water and thingies from oil
 
 
-        ''' Em falta self.cup_shape = , no em mola idea que tree neixi d'ingredientable a través de plant. No pots fer servir abedul com a ingredient, però sí madera... '''
 
-        fruit = random.choice([True,False])
-        if fruit:
-            self.fruit = plant_classes.Fruit()
-        else:
-            self.fruit = None
         
 
 

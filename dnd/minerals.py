@@ -1,28 +1,25 @@
 import random
 import rangen
 import numpy as np
-from Ingredientable import Ingredientable
+from Ingredients import Ingredient
 
 
 
 
-class Mineral(Ingredientable):
+class Mineral(Ingredient):
     
-    def __init__(self,shapes=Ingredientable.shapes, textures = Ingredientable.textures,p_distr=Ingredientable.p_distr):
+    def __init__(self):
         fractures = ['conchoidal','earthy','hackly','splintery','uneven']
 
         streak=''   #colour
         lattices = ['cubic','tetragonal','orthorhombic','hexagonal','trigonal','triclinic','monoclinic']
-        names = Ingredientable.load_names('minerals')
+        # names = Ingredientable.load_names('minerals')
+        super().__init__()
+        self.attributes['type'] = 'Mineral'       #This is for the jpg saved
         
-        self.type = 'Mineral'       #This is for the jpg saved
-        super().__init__(shapes, textures,p_distr)
 
         
-        self.name = rangen.newWord(names,6)+"ite"
-        self.fracture = random.choice(fractures)
-        self.lattice = random.choice(lattices)
-
-
-x = Mineral()
+        self.attributes['name'] = rangen.newWord('minerals',6)+"ite"
+        self.attributes['fracture'] = random.choice(fractures)
+        self.attributes['lattice'] = random.choice(lattices)
 

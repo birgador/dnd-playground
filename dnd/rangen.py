@@ -2,7 +2,7 @@ import random
 import numpy as np
 from PIL import Image
 
-def random_colour(name='test'):
+def random_colour(name='test',save=False):
     random_number = random.randint(0,16777215)
     hex_number = str(hex(random_number))
     hex_number ='#'+ hex_number[2:]
@@ -10,8 +10,9 @@ def random_colour(name='test'):
         for i in range(7-len(hex_number)):
             hex_number+='0'
     # print('A  Random Hex Color Code is :',hex_number)
-    im = Image.new('RGB',(1080,1440),hex_number)
-    im.save(name+'.jpg','JPEG')
+    if save:
+        im = Image.new('RGB',(1080,1440),hex_number)
+        im.save(name+'.jpg','JPEG')
     return hex_number
 
 
@@ -24,8 +25,16 @@ def choose_environment():
 
     return random.choice(environments)
 
+def load_names(file_name):
+        with open('files/'+file_name+'.txt','r') as f:
+            read_data = f.readlines()[0]
+            data = set(read_data.split(','))
+        return data
+
 # Generates new words based on input using markov chains
-def newWord(words,lim=7):
+def newWord(file_name,lim=7):
+
+    words = load_names(file_name)
     states = {}
     initial_states = {}
     for word in words:

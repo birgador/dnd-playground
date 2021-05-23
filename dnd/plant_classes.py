@@ -104,32 +104,7 @@ class Fruit_core(Ingredientable):
 
 
 
-class Fruit(Ingredientable):
-    
-    with open('files/fr.txt','r') as f:
-        read_data = f.readlines()[0]
-        data = set(read_data.split(','))
 
-    def __init__(self,data=data):
-        self.core = Fruit_core()
-        self.skin = Fruit_skin()
-        self.seed = Fruit_seed()
-        self.name = rangen.newWord(data)
-        self.environment = rangen.choose_environment()
-
-        self.core.set_parent(self)
-        self.skin.set_parent(self)
-        self.seed.set_parent(self)
-
-
-
-
-    def describe(self):
-
-        print("The fruit is named {} and can usually be found in {}".format(self.name,self.environment))
-        self.skin.describe()
-        self.core.describe()
-        self.seed.describe()
 
 # for i in range(10):
 #     x = Fruit()
